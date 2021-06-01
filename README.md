@@ -44,20 +44,21 @@ This CLI application will provide a fully customizable tool to manage __[Ninja][
 - [Configuration File](#configuration-file)
 - [Host Setup](#host-setup)
     - [Use Dynamic DNS](#use-dynamic-dns)
+    - [Use A VPS](#use-a-vps)
     - [Use A Static IP Address](#use-a-static-ip-address)
     - [Use A Domain Name](#use-a-domain-name)
 - [Use As Spyware](#use-as-spyware)
 
 
 # [Ninja][ninja]
-__[Ninja][ninja]__ should be running on the target computer in order to control it with Jonin. Host and PORT configuration should be same on Ninja and Jonin to establish connection
+__[Ninja][ninja]__ should be running on the target computer in order to control it with Jonin. __PORT__ configuration should be same on Ninja and Jonin and __HOST__ should point to Jonin to establish connection
 
 # Setup
 
 Follow these steps to setup Jonin: 
 
 - Download the __[release][release]__ and extract 
-- Change __HOST__ and __PORT__ in `config/constants.json` to match values on target __[Ninja][ninja]__. Please read [This Guidance](#host-setup) about how to setup HOST to never lose access to Ninja
+- Change __PORT__ in `config/constants.json` to match __PORT__ on target __[Ninja][ninja]__. Please read [This Guide](#host-setup) about how to setup __HOST__ to never lose access to Ninja
 - Forward selected port on you router. There are lots of guides out there. [This one][noio-port-forwarding] from noip is a nice one
 - Done! Now wait for some report from your __[Ninja][ninja]__ spies!
 
@@ -297,10 +298,13 @@ You can find this file in `config/constants.json`:
 ```
 
 # Host Setup
-When configuring __[Ninja][ninja]__, you should use a __HOST__ that will always be available. So you'll have to use one of the following options:
+When configuring __[Ninja][ninja]__, you should use a __HOST__ that points to __[Jonin][jonin]__ computer and also will always be available. So you'll have to use one of the following options:
 
 ### Use Dynamic DNS
 This is the best way I can suggest since It's free and easy. you just need to create an account in one of DDNS services (like [Duck DNS][duckdns] and [No-Ip][noip]), create a domain name and set it to point to your dynamic IP address. If your ISP changed your IP, then just simply change it on DDNS website or install a Dynamic Update Client (DUC) to do this for you automatically.
+
+### Use A VPS
+You can purchase a VPS and use its IP or hostname as __HOST__ in config file. However you'll always have to control your Ninjas from this VPS. Another downside is that this is paid.
 
 ### Use A Static IP Address
 You can use an IP address for your Jonin and set this IP in __[Ninja][ninja]__'s configuration. This is not recommended since you'll have to spend money while there are easy free ways, unless you have a static IP already
