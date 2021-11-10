@@ -1,5 +1,7 @@
 # Jonin [![version-shield]][release] [![cross-platform-shield]](#platforms)
-> A fully customizable CLI application to coummunicate with and send commands to __[Ninja][ninja]__ spies behind any NAT, firewall and proxy! 
+> A fully customizable CLI application to coummunicate with and send commands to __[Ninja][ninja]__ running behind any NAT, firewall and proxy! Providing secure shell access, file transfer and shell stream (stream shell output from remote to a local file). Jonin has no prerequisites, you can just [download the release][release] and use it right away!
+
+__Please note that Jonin is the controller (commander). You would need [Ninja][ninja] on target (remote) computer(s) to host the connection and perform the Jonin's commands__
 
 ![logo]
 
@@ -16,7 +18,7 @@ You can download latest release from [here][release]
 
 ![windows] | ![macos] | ![linux] |
 --- | --- | --- |
-Tested on Windows 10 ✔ | Not tested but should work | Not tested but should work |
+Windows 10 ✔ | macOS 12 Monterey ✔ | Parrot OS 4.11.2 ✔ |
 
 
 # Overview
@@ -60,7 +62,7 @@ Follow these steps to setup Jonin:
 - Download the __[release][release]__ and extract 
 - Change __PORT__ in `config/constants.json` to match __PORT__ on target __[Ninja][ninja]__. Please read [This Guide](#host-setup) about how to setup __HOST__ to never lose access to Ninja
 - Forward selected port on you router. There are lots of guides out there. [This one][noio-port-forwarding] from noip is a nice one
-- Done! Now wait for some report from your __[Ninja][ninja]__ spies!
+- Done! Now wait for some report from your __[Ninja][ninja]__ !
 
 __Note: make sure to create your own certificates in `/certificates`. Existing certificates are only to make it easier to test__
 
@@ -336,7 +338,7 @@ Be aware __[Ninja][ninja]__ can be easily used as a spyware when installed as a 
 [noio-port-forwarding]: https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/
 [noip]: https://www.noip.com
 [duckdns]: https://www.duckdns.org
-[windows]: https://user-images.githubusercontent.com/46329768/120122894-fa2bfb00-c1c0-11eb-9700-8a55d43f1e01.png
-[macos]: https://user-images.githubusercontent.com/46329768/120122895-fbf5be80-c1c0-11eb-92c4-fba52ce104cc.png
-[linux]: https://user-images.githubusercontent.com/46329768/120122893-f7c9a100-c1c0-11eb-8c7b-405c73691113.png
+[windows]: https://user-images.githubusercontent.com/46329768/141021000-3fe223be-f648-4aaf-8a2a-3a5d84f95d50.png
+[macos]: https://user-images.githubusercontent.com/46329768/141021007-c2075401-e0e0-4451-8668-77da557bbe9b.png
+[linux]: https://user-images.githubusercontent.com/46329768/141096642-40524479-cc30-42e3-8a8e-c76c5c9b3f50.png
 
