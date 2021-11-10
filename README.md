@@ -227,7 +227,7 @@ You can find this file in `config/constants.json`:
 {
     // connection port
     "PORTS": {
-        "DATA": 443
+        "DATA": 3707
     },
 
     // connection config. any valid Socket.io option
@@ -329,7 +329,10 @@ which will save video to __G:/cam.mkv__ and errors to __G:/cam-err.txt__
 # Use As Spyware
 Be aware __[Ninja][ninja]__ can be easily used as a spyware when installed as a service, it will open full access to the target computer for the Jonin controlling it
 
-[version-shield]: https://img.shields.io/badge/Version-1.0.0-blue
+# Source Code
+Source code will be open soon, after some refactoring and improvements
+
+[version-shield]: https://img.shields.io/badge/Version-1.0.1-blue
 [cross-platform-shield]: https://img.shields.io/badge/Cross-Platform-brightgreen
 [logo]: https://user-images.githubusercontent.com/46329768/120117984-597c1200-c1a5-11eb-8190-2dac8b7cbe8d.jpg
 [ninja]: https://github.com/ErAz7/Ninja
