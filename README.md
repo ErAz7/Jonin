@@ -1,7 +1,7 @@
 # Jonin [![version-shield]][release] [![cross-platform-shield]](#platforms)
 > A fully customizable CLI application to coummunicate with and send commands to __[Ninja][ninja]__ running behind any NAT, firewall and proxy! Providing secure shell access, file transfer and shell stream (stream shell output from remote to a local file). Jonin has no prerequisites, you can just [download the release][release] and use it right away!
 
-__Please note that Jonin is the controller (commander). You would need [Ninja][ninja] on target (remote) computer(s) to host the connection and perform the Jonin's commands__
+__Please note that Jonin is the controller (commander). You would need [Ninja][ninja] on target (remote) computer(s) to host and execute the Jonin's commands__
 
 ![logo]
 
@@ -327,7 +327,7 @@ to see list of DirectShow devices and then use the following `cmd-stream` comman
 which will save video to __G:/cam.mkv__ and errors to __G:/cam-err.txt__
 
 # Use As Spyware
-Be aware __[Ninja][ninja]__ can be easily used as a spyware when installed as a service, it will open full access to the target computer for the Jonin controlling it
+Please note that Ninja can be easily used as a spyware when installed as a service, it will open full access to the target computer for the __[Jonin][jonin]__ controlling it
 
 # Source Code
 Source code will be open soon, after some refactoring and improvements
