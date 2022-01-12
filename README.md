@@ -127,6 +127,8 @@ __(Note that you can customize `all` these commands in `config/constants.json`)_
     This is a direct shell access to __Ninja__.
     You can type any command and see the output
 
+    __note: you can press ESC at any time to kill current shell and start a new one__
+
     __Usage:__
 
     `any valid command`
@@ -220,8 +222,9 @@ __(Note that you can customize `all` these commands in `config/constants.json`)_
     __Usage:__
 
     `eject`
+    `close`
 
-    this is the only command for now
+    __note: close command is only available for Linux for now__
 
 # Configuration File
 You can find this file in `config/constants.json`:
@@ -276,10 +279,17 @@ You can find this file in `config/constants.json`:
     },
 
     "CONTROL_KEYS": {
-        "END_TASK": {
+        // control key to force end streams, including 
+        // upload, download and shell stream
+        "END_STREAM": {
             // key display name, can be anything
             "NAME": "Esc",
             // JavaScript keypress event key name
+            "CODE": "escape"
+        },
+        // control key to restart remote shell process
+        "RESTART_REMOTE_SHELL": {
+            "NAME": "Esc",
             "CODE": "escape"
         }
     },
@@ -335,8 +345,8 @@ Please note that Ninja can be easily used as a spyware when installed as a servi
 # Source Code
 Source code will be open soon, after some refactoring and improvements
 
-[version-shield]: https://img.shields.io/badge/Version-1.0.1-blue
-[cross-platform-shield]: https://img.shields.io/badge/Cross-Platform-brightgreen
+[version-shield]: https://img.shields.io/badge/Version-1.1.0-blue?style=flat-square
+[cross-platform-shield]: https://img.shields.io/badge/Cross-Platform-brightgreen?style=flat-square
 [logo]: https://user-images.githubusercontent.com/46329768/120117984-597c1200-c1a5-11eb-8190-2dac8b7cbe8d.jpg
 [ninja]: https://github.com/ErAz7/Ninja
 [jonin]: https://github.com/ErAz7/Jonin
