@@ -268,7 +268,8 @@ You can find this file in `config/constants.json`:
     },
 
     "TRAY_COMMANDS": {
-        "EJECT": "eject"
+        "EJECT": "eject",
+        "CLOSE": "close"
     },
 
     "CONTROL_COMMANDS": {
