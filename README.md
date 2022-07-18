@@ -1,12 +1,14 @@
-# Jonin [![version-shield]][release] [![cross-platform-shield]](#platforms)
-> A fully customizable CLI application to coummunicate with and send commands to __[Ninja][ninja]__ running behind any NAT, firewall and proxy! Providing secure shell access, file transfer and shell stream (stream shell output from remote to a local file). Jonin has no prerequisites, you can just [download the release][release] and use it right away!
+# Jonin [![version-shield]][jonin-release] [![cross-platform-shield]](#platforms)
 
-__Please note that Jonin is the controller (commander). You would need [Ninja][ninja] on target (remote) computer(s) to host and execute the Jonin's commands__
+> A fully customizable CLI application to coummunicate with and send commands to **[Ninja][ninja]** running behind any NAT, firewall and proxy! Providing secure shell access, file transfer and shell stream (stream shell output from remote to a local file). Jonin has no prerequisites, you can just [download the release][jonin-release] and use it right away!
+
+**Please note that Jonin is the controller (commander). You would need [Ninja][ninja] on target (remote) computer(s) to host and execute the Jonin's commands**
 
 ![logo]
 
-# [Download][release]
-You can download latest release from [here][release]
+# [Download][jonin-release]
+
+You can download latest release from [here][jonin-release]
 
 # Features
 
@@ -15,18 +17,18 @@ You can download latest release from [here][release]
 - Shell stream, run command on remote ([Ninja][ninja]) and stream output to a file on local ([Jonin][jonin])
 
 # Demo
+
 https://user-images.githubusercontent.com/46329768/141596530-56ef1ba9-3c91-4ad6-8975-8f38812d1db1.mp4
 
 # Platforms
 
-![windows] | ![macos] | ![linux] |
---- | --- | --- |
-Windows 10 ✔ | macOS 12 Monterey ✔ | Parrot OS 4.11.2 ✔ |
-
+| ![windows]   | ![macos]            | ![linux]           |
+| ------------ | ------------------- | ------------------ |
+| Windows 10 ✔ | macOS 12 Monterey ✔ | Parrot OS 4.11.2 ✔ |
 
 # Overview
 
-This CLI application will provide a fully customizable tool to manage __[Ninja][ninja]__ instances, connect to them, execute commands, download and upload files and use shell stream feature (stream shell output from Ninja to Jonin/local computer).
+This CLI application will provide a fully customizable tool to manage **[Ninja][ninja]** instances, connect to them, execute commands, download and upload files and use shell stream feature (stream shell output from Ninja to Jonin/local computer).
 
 - [Download](#download)
 - [Features](#features)
@@ -35,315 +37,336 @@ This CLI application will provide a fully customizable tool to manage __[Ninja][
 - [Ninja](#ninja)
 - [Setup](#setup)
 - [Usage](#usage)
-    - [Control Commands](#control-commands)
-        - [change](#change)
-        - [clear](#change)
-        - [exit](#change)
-    - [Command Types](#command-types)
-        - [manage](#manage)
-        - [cmd](#cmd)
-        - [cmd-stream](#cmd-stream)
-        - [upload](#upload)
-        - [download](#download)
-        - [tray](#tray)
+  - [Control Commands](#control-commands)
+    - [change](#change)
+    - [clear](#change)
+    - [exit](#change)
+  - [Command Types](#command-types)
+    - [manage](#manage)
+    - [cmd](#cmd)
+    - [cmd-stream](#cmd-stream)
+    - [upload](#upload)
+    - [download](#download)
+    - [tray](#tray)
 - [Configuration File](#configuration-file)
 - [Host Setup](#host-setup)
-    - [Use Dynamic DNS](#use-dynamic-dns)
-    - [Use A VPS](#use-a-vps)
-    - [Use A Static IP Address](#use-a-static-ip-address)
-    - [Use A Domain Name](#use-a-domain-name)
+  - [Dynamic DNS](#dynamic-dns)
+  - [VPS](#vps)
+  - [Static IP Address](#static-ip-address)
+  - [Domain Name](#domain-name)
 - [Use As Spyware](#use-as-spyware)
 
-
 # [Ninja][ninja]
-__[Ninja][ninja]__ should be running on the target computer in order to control it with Jonin. __PORT__ configuration should be same on Ninja and Jonin and __HOST__ should point to Jonin to establish connection
+
+**[Ninja][ninja]** should be running on the target computer in order to control it with Jonin. **PORT** configuration should be same on Ninja and Jonin and **HOST** should point to Jonin to establish connection
 
 # Setup
 
-Follow these steps to setup Jonin: 
+Follow these steps to setup Jonin and Ninja:
 
-- Download the __[release][release]__ and extract 
-- Change __PORT__ in `config/constants.json` to match __PORT__ on target __[Ninja][ninja]__. Please read [This Guide](#host-setup) about how to setup __HOST__ to never lose access to Ninja
-- Forward selected port on you router. There are lots of guides out there. [This one][noio-port-forwarding] from noip is a nice one
-- Done! Now wait for some report from your __[Ninja][ninja]__ !
+- Download **[Jonin Release][jonin-release]** and **[Ninja Release][ninja-release]**
+- Change **PORT** in `config/constants.json` for both Ninja and Jonin, the ports should be the same. Please read [This Guide](#host-setup) about how to setup **HOST** to never lose access to Ninja
+- Forward configured port on **Jonin**'s router. There are lots of guides out there for port forwarding. [This one][noio-port-forwarding] from noip is a nice one
+- Done! Now run **[Ninja][ninja]** on the target/remote computer, run Jonin on controller/local computer and wait for some report from your **[Ninja][ninja]** !
 
-__Note: make sure to create your own certificates in `/certificates`. Existing certificates are only to make it easier to test__
+**For usage guide and list of commands, [check here][jonin-usage]**
+
+**Note: If you did all above and got `no ninja`, then the chances are your ISP is putting you behind a NAT. You can check and if so, ask them to change your NAT type to `OPEN` to fix this**
+
+**_Note_: `NO_LOG` in config file SHOULD be set to `true` when you want to use Ninja as a service, otherwise, the log file might grow larger forever (up to the limit)**
 
 # Usage
 
 There are few command types available that each of them has their own commands. Here's a full instruction:
 
-__(Note that you can customize `all` these commands in `config/constants.json`)__
+**(Note that you can customize `all` these commands in `config/constants.json`)**
 
 ### Control Commands
 
-- #### `change` 
+- #### `change`
   use this command to change command type ([list of all types](#command-types))
-- #### `cls`, `clear` 
+- #### `cls`, `clear`
   clear console
-- #### `/exit` 
+- #### `/exit`
   cose Jonin
 
 ### Command Types
-- #### `manage` 
-    __Ninja__ management command. using this command type, you can
-    see list of your __Ninja__ s, check their details and connect to them
-    
-    __note: you should list __Ninja__ s first in order to use commands that
-    require index__
 
-    __Usage:__
+- #### `manage`
 
-    - `list`
+  **Ninja** management command. using this command type, you can
+  see list of your **Ninja** s, check their details and connect to them
 
-      List all Ninjas
+  **note: you should list **Ninja** s first in order to use commands that
+  require index**
 
-    - `expand <index>`
+  **Usage:**
 
-      display all details of the __Ninja__ with index < index > from Ninja list
+  - `list`
 
-    - `connect <index>`
+    List all Ninjas
 
-      connect to the __Ninja__ with index < index > from Ninja list
+  - `expand <index>`
 
-    - `disconnect`
+    display all details of the **Ninja** with index < index > from Ninja list
 
-      disconnect from Ninja
+  - `connect <index>`
 
-    __Example:__
+    connect to the **Ninja** with index < index > from Ninja list
 
-    - `list`
-      show list of Ninjas
+  - `disconnect`
 
-    - `expand 1`
+    disconnect from Ninja
 
-      display all details of Ninja __Ninja__ with index 1 from __Ninja__ list
+  **Example:**
 
-    - `connect 1`
+  - `list`
+    show list of Ninjas
 
-      connect to Ninja __Ninja__ with index 1 from __Ninja__ list
+  - `expand 1`
 
-- #### `cmd` 
-    This is a direct shell access to __Ninja__.
-    You can type any command and see the output
+    display all details of Ninja **Ninja** with index 1 from **Ninja** list
 
-    __note: you can press ESC at any time to kill current shell and start a new one__
+  - `connect 1`
 
-    __Usage:__
+    connect to Ninja **Ninja** with index 1 from **Ninja** list
 
-    `any valid command`
+- #### `cmd`
 
-    __Example:__
+  This is a direct shell access to **Ninja**.
+  You can type any command and see the output
 
-    - `ping 8.8.8.8`
-    - `diskpart`
-    - `traceroute`
+  **note: you can press ESC at any time to kill current shell and start a new one**
 
-- #### `cmd-stream` 
-    Same as `cmd`, except this one takes 2 local file paths and pipes the command output and error from __Ninja__ to these files respectively
-    
-    __note: you can press Esc at any time to end transfer__
+  **Usage:**
 
-    __Usage:__
+  `any valid command`
 
-    `@<command>@<output_file>@[<error_file>@]`
-    - `<command>` any valid command
+  **Example:**
 
-    - `<output_file>` a valid local file path to pipe process __output__
-    
-    - `<error_file>` a valid local file path to pipe process __error__
-    
-    __Example:__
+  - `ping 8.8.8.8`
+  - `diskpart`
+  - `traceroute`
 
-    - `@tracert 8.8.8.8@G:/trace.txt@`
-    
-        pipe trace route result from Ninja to G:/trace.txt)
+- #### `cmd-stream`
 
-    - `@ffmpeg -f gdigrab -framerate 30 -i desktop -f matroska -@G:/desktop.mkv@G:/desktop-err.txt@`
-        
-        record __Ninja__ desktop and pipe it to G:/desktop.mkv, also pipe any process error to G:/desktop-err.txt
+  Same as `cmd`, except this one takes 2 local file paths and pipes the command output and error from **Ninja** to these files respectively
 
+  **note: you can press Esc at any time to end transfer**
 
-- #### `upload` 
-    Upload one or more files from local to __Ninja__
-    
-    __note: you can press Esc at any time to end transfer__
+  **Usage:**
 
-    __Usage:__
+  `@<command>@<output_file>@[<error_file>@]`
 
-    `@<local_file_path>|<remote_file_path>@[...]`
+  - `<command>` any valid command
 
-    - `<local_file_path>` a valid local (source) file path
-    
-    - `<remote_file_path>` a valid file path on __Ninja__ (destination)
-    
-    - `[...]` add more path pairs to upload multiple files at once
-    
-    __Example:__
+  - `<output_file>` a valid local file path to pipe process **output**
 
-    - `@G:/movie.mkv|C:/movie.mkv@`
-        
-        upload movie.mkv from local's G drive to __Ninja__'s C drive
-    
-    - `@G:/movie1.mkv|C:/movie1.mkv@G:/movie2.mkv|C:/movie2.mkv@`
-        
-        upload movie1.mkv and movie2.mkv from local's G drive
-        to __Ninja__'s C drive both together
+  - `<error_file>` a valid local file path to pipe process **error**
 
-- #### `download` 
-    Download one or more files from __Ninja__ to local
-    
-    __note: you can press Esc at any time to end transfer__
+  **Example:**
 
-    __Usage:__
+  - `@tracert 8.8.8.8@G:/trace.txt@`
 
-    `@<local_file_path>|<remote_file_path>@[...]`
+    pipe trace route result from Ninja to G:/trace.txt)
 
-    - `<local_file_path>` a valid local (destination) file path
-    
-    - `<remote_file_path>` a valid file path on __Ninja__ (source)
-    
-    - `[...]` add more path pairs to download multiple files at once
-    
-    __Example:__
+  - `@ffmpeg -f gdigrab -framerate 30 -i desktop -f matroska -@G:/desktop.mkv@G:/desktop-err.txt@`
+    record **Ninja** desktop and pipe it to G:/desktop.mkv, also pipe any process error to G:/desktop-err.txt
 
-    - `@G:/movie.mkv|C:/movie.mkv@`
-        
-        download movie.mkv from __Ninja__'s C drive to local's G drive
-    
-    - `@G:/movie1.mkv|C:/movie1.mkv@G:/movie2.mkv|C:/movie2.mkv@`
-        
-        download movie1.mkv and movie2.mkv from __Ninja__'s C drive
-        to local's G drive both together
+- #### `upload`
 
-- #### `tray` 
-    To have some fun, you can control __Ninja__'s disk tray
+  Upload one or more files from local to **Ninja**
 
-    __Usage:__
+  **note: you can press Esc at any time to end transfer**
 
-    `eject`
-    `close`
+  **Usage:**
 
-    __note: close command is only available for Linux for now__
+  `@<local_file_path>|<remote_file_path>@[...]`
+
+  - `<local_file_path>` a valid local (source) file path
+
+  - `<remote_file_path>` a valid file path on **Ninja** (destination)
+
+  - `[...]` add more path pairs to upload multiple files at once
+
+  **Example:**
+
+  - `@G:/movie.mkv|C:/movie.mkv@`
+
+    upload movie.mkv from local's G drive to **Ninja**'s C drive
+
+  - `@G:/movie1.mkv|C:/movie1.mkv@G:/movie2.mkv|C:/movie2.mkv@`
+    upload movie1.mkv and movie2.mkv from local's G drive
+    to **Ninja**'s C drive both together
+
+- #### `download`
+
+  Download one or more files from **Ninja** to local
+
+  **note: you can press Esc at any time to end transfer**
+
+  **Usage:**
+
+  `@<local_file_path>|<remote_file_path>@[...]`
+
+  - `<local_file_path>` a valid local (destination) file path
+
+  - `<remote_file_path>` a valid file path on **Ninja** (source)
+
+  - `[...]` add more path pairs to download multiple files at once
+
+  **Example:**
+
+  - `@G:/movie.mkv|C:/movie.mkv@`
+
+    download movie.mkv from **Ninja**'s C drive to local's G drive
+
+  - `@G:/movie1.mkv|C:/movie1.mkv@G:/movie2.mkv|C:/movie2.mkv@`
+    download movie1.mkv and movie2.mkv from **Ninja**'s C drive
+    to local's G drive both together
+
+- #### `tray`
+
+  To have some fun, you can control **Ninja**'s disk tray
+
+  **Usage:**
+
+  `eject`
+  `close`
+
+  **note: close command is only available for Linux for now**
 
 # Configuration File
+
 You can find this file in `config/constants.json`:
 
 ```jsonc
 {
-    // connection port
-    "PORTS": {
-        "DATA": 3707
+  // connection port
+  "PORTS": {
+    "DATA": 3707
+  },
+
+  // connection config. any valid Socket.io option
+  "CONNECTION": {
+    "RECONNECTION_DELAY_MAX": 5000,
+    "RECONNECTION_DELAY": 1000,
+    "TIMEOUT": 20000,
+
+    "rejectUnauthorized": false
+  },
+
+  // interval in which file receiver party will send ack to sender
+  "FILE_TRANSFER": {
+    "ACK_INTERVAL": 2000
+  },
+
+  // command type names
+  "COMMAND_TYPES": {
+    "CMD": "cmd",
+    "TRAY": "tray",
+    "INSTANCE_MANAGEMENT": "manage",
+    "UPLOAD": "upload",
+    "DOWNLOAD": "download",
+    "CMD_STREAM": "cmd-stream"
+  },
+
+  "INSTANCE_MANAGEMENT_COMMANDS": {
+    "LIST": "list",
+    "CONNECT": "connect",
+    "DISCONNECT": "disconnect",
+    "EXPAND": "expand"
+  },
+
+  "TRAY_COMMANDS": {
+    "EJECT": "eject",
+    "CLOSE": "close"
+  },
+
+  "CONTROL_COMMANDS": {
+    "CHANGE_COMMAND_TYPE": "change",
+    "CLEAR": ["cls", "clear"],
+    "EXIT": ["/exit"],
+    "HELP": "#help"
+  },
+
+  "CONTROL_KEYS": {
+    // control key to force end streams, including
+    // upload, download and shell stream
+    "END_STREAM": {
+      // key display name, can be anything
+      "NAME": "Esc",
+      // JavaScript keypress event key name
+      "CODE": "escape"
     },
-
-    // connection config. any valid Socket.io option
-    "CONNECTION": {
-        "RECONNECTION_DELAY_MAX": 5000,
-        "RECONNECTION_DELAY": 1000,
-        "TIMEOUT": 20000,
-
-        "rejectUnauthorized": false
-    },
-
-    // interval in which file receiver party will send ack to sender
-    "FILE_TRANSFER": {
-        "ACK_INTERVAL": 2000
-    },
-
-    // command type names
-    "COMMAND_TYPES": {
-        "CMD": "cmd",
-        "TRAY": "tray",
-        "INSTANCE_MANAGEMENT": "manage",
-        "UPLOAD": "upload",
-        "DOWNLOAD": "download",
-        "CMD_STREAM": "cmd-stream"
-    },
-
-    "INSTANCE_MANAGEMENT_COMMANDS": {
-        "LIST": "list",
-        "CONNECT": "connect",
-        "DISCONNECT": "disconnect",
-        "EXPAND": "expand"
-    },
-
-    "TRAY_COMMANDS": {
-        "EJECT": "eject",
-        "CLOSE": "close"
-    },
-
-    "CONTROL_COMMANDS": {
-        "CHANGE_COMMAND_TYPE": "change",
-        "CLEAR": ["cls", "clear"],
-        "EXIT": ["/exit"],
-        "HELP": "#help"
-    },
-
-    "CONTROL_KEYS": {
-        // control key to force end streams, including 
-        // upload, download and shell stream
-        "END_STREAM": {
-            // key display name, can be anything
-            "NAME": "Esc",
-            // JavaScript keypress event key name
-            "CODE": "escape"
-        },
-        // control key to restart remote shell process
-        "RESTART_REMOTE_SHELL": {
-            "NAME": "Esc",
-            "CODE": "escape"
-        }
-    },
-
-    // separators used in commands like download and upload
-    "PRIMARY_SEPARATOR": "@",
-    "SECONDARY_SEPARATOR": "|",
-
-    "PROGRESS_BAR": {
-        // progress bar colors 
-        "COLOR_MAP": {
-            "FAILED": ["red", "red"],
-            "INVALID": ["red", "red"],
-            "DONE": ["gray", "green"],
-            "IN_PROGRESS": ["gray", "cyan"]
-        },
-        // progress bar name/label maximum length
-        "MAX_NAME_LENGTH": 10
+    // control key to restart remote shell process
+    "RESTART_REMOTE_SHELL": {
+      "NAME": "Esc",
+      "CODE": "escape"
     }
+  },
+
+  // separators used in commands like download and upload
+  "PRIMARY_SEPARATOR": "@",
+  "SECONDARY_SEPARATOR": "|",
+
+  "PROGRESS_BAR": {
+    // progress bar colors
+    "COLOR_MAP": {
+      "FAILED": ["red", "red"],
+      "INVALID": ["red", "red"],
+      "DONE": ["gray", "green"],
+      "IN_PROGRESS": ["gray", "cyan"]
+    },
+    // progress bar name/label maximum length
+    "MAX_NAME_LENGTH": 10
+  }
 }
 ```
 
 # Host Setup
-When configuring __[Ninja][ninja]__, you should use a __HOST__ that points to __[Jonin][jonin]__ computer and also will always be available. So you'll have to use one of the following options:
 
-### Use Dynamic DNS
+When configuring **[Ninja][ninja]**, you should use a **HOST** that points to **[Jonin][jonin]** computer and also will always be available. So you'll have to use one of the following options:
+
+### Dynamic DNS
+
 This is the best way I can suggest since It's free and easy. you just need to create an account in one of DDNS services (like [Duck DNS][duckdns] and [No-Ip][noip]), create a domain name and set it to point to your dynamic IP address. If your ISP changed your IP, then just simply change it on DDNS website or install a Dynamic Update Client (DUC) to do this for you automatically.
 
-### Use A VPS
-You can purchase a VPS and use its IP or hostname as __HOST__ in config file. However you'll always have to control your Ninjas from this VPS. Another downside is that this is paid.
+### VPS
 
-### Use A Static IP Address
-You can use an IP address for your Jonin and set this IP in __[Ninja][ninja]__'s configuration. This is not recommended since you'll have to spend money while there are easy free ways, unless you have a static IP already
+You can purchase a VPS and use its IP or hostname as **HOST** in config file. However you'll always have to control your Ninjas from this VPS. Another downside is that this is paid.
 
-### Use A Domain Name
-Just like static IP, you can use a domain name for your Jonin and set this name in __[Ninja][ninja]__'s configuration. For same reason as static IP, this also is not a recommended way
+### Static IP Address
+
+You can use an IP address for your Jonin and set this IP in **[Ninja][ninja]**'s configuration. This is not recommended since you'll have to spend money while there are easy free ways, unless you have a static IP already
+
+### Domain Name
+
+Just like static IP, you can use a domain name for your Jonin and set this name in **[Ninja][ninja]**'s configuration. For same reason as static IP, this also is not a recommended way
 
 # Record Ninja Camera And Mic
-One way to do this is to use __FFmpeg__. You'll need to either copy __FFmpeg__ files into target computer when setting up __[Ninja][ninja]__, upload it to an already set up __Ninja__ using `upload` command or order Ninja to download it itself using shell commands
+
+One way to do this is to use **FFmpeg**. You'll need to either copy **FFmpeg** files into target computer when setting up **[Ninja][ninja]**, upload it to an already set up **Ninja** using `upload` command or order Ninja to download it itself using shell commands
 Then, on windows for example, you can run this:
+
 ```bash
 ffmpeg -list_devices true -f dshow -i dummy
 ```
+
 to see list of DirectShow devices and then use the following `cmd-stream` command to record it on Jonin computer:
+
 ```bash
 @ffmpeg -f dshow -i video="DIRECT_SHOW_CAMERA_FROM_LIST":audio="DIRECT_SHOW_MIC_FROM_LIST" -f matroska -@G:/cam.mkv@G:/cam-err.txt@
 ```
-which will save video to __G:/cam.mkv__ and errors to __G:/cam-err.txt__
+
+which will save video to **G:/cam.mkv** and errors to **G:/cam-err.txt**
 
 # Use As Spyware
-Please note that Ninja can be easily used as a spyware when installed as a service, it will open full access to the target computer for the __[Jonin][jonin]__ controlling it
+
+Please note that Ninja can be easily used as a spyware, especially when installed as a service, it will open full access to the target computer for the **[Jonin][jonin]** controlling it. So use it carefully and don't leave the **Ninja** process running on a computer that is connected to the internet
 
 # Source Code
+
 Source code will be open soon, after some refactoring and improvements
 
 [version-shield]: https://img.shields.io/badge/Version-1.1.0-blue?style=flat-square
@@ -351,11 +374,11 @@ Source code will be open soon, after some refactoring and improvements
 [logo]: https://user-images.githubusercontent.com/46329768/120117984-597c1200-c1a5-11eb-8190-2dac8b7cbe8d.jpg
 [ninja]: https://github.com/ErAz7/Ninja
 [jonin]: https://github.com/ErAz7/Jonin
-[release]: https://github.com/ErAz7/Jonin/releases
+[ninja-release]: https://github.com/ErAz7/Ninja/releases
+[jonin-release]: https://github.com/ErAz7/Jonin/releases
 [noio-port-forwarding]: https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/
 [noip]: https://www.noip.com
 [duckdns]: https://www.duckdns.org
 [windows]: https://user-images.githubusercontent.com/46329768/141021000-3fe223be-f648-4aaf-8a2a-3a5d84f95d50.png
 [macos]: https://user-images.githubusercontent.com/46329768/141021007-c2075401-e0e0-4451-8668-77da557bbe9b.png
 [linux]: https://user-images.githubusercontent.com/46329768/142761409-badaec5e-7f02-4280-9dfb-294adc305f56.png
-
