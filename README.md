@@ -18,7 +18,9 @@ You can download latest release from [here][jonin-release]
 
 # Demo
 
-https://user-images.githubusercontent.com/46329768/141596530-56ef1ba9-3c91-4ad6-8975-8f38812d1db1.mp4
+![jonin](https://user-images.githubusercontent.com/46329768/179629372-c2ee8fab-8a48-4557-b049-5e99f9d3f9e4.gif)
+
+https://user-images.githubusercontent.com/46329768/179628114-5f6d4307-4bd8-419f-8c85-873e790e440f.mp4
 
 # Platforms
 
