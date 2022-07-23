@@ -38,7 +38,7 @@ This CLI application will provide a fully customizable tool to manage **[Ninja][
 - [Overview](#overview)
 - [Ninja](#ninja)
 - [Setup](#setup)
-  - [Getting `No Ninjas`](#getting-no-ninjas)
+  - [Fix `No Ninjas` Error](#fix-no-ninjas-error)
 - [Usage](#usage)
   - [Control Commands](#control-commands)
     - [change](#change)
@@ -76,7 +76,7 @@ Follow these steps to setup Jonin and Ninja:
 
 **Note: `NO_LOG` in config file SHOULD be set to `true` when you want to use Ninja as a service, otherwise, the log file might grow larger forever (up to the limit)**
 
-### Getting `No Ninjas`
+### Fix `No Ninjas` Error
 
 If you did all above and got `No Ninjas`, then the chances are your ISP is putting you behind a NAT. To check this, you can find your router's WAN IP address (can be found on router's homepage) and then compare it to the actual IP address that you have on the internet (can be found by searching `my ip` on google); If these IP addresses were NOT identical, then your router is behind a NAT. To fix this, you should ask your ISP to change your NAT type to `OPEN`
 
