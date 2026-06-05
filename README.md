@@ -1,49 +1,27 @@
 # Jonin [![version-shield]][jonin-release] [![cross-platform-shield]](#platforms)
 
-> A fully customizable CLI application to coummunicate with and send commands to **[Ninja][ninja]** running behind any NAT, firewall and proxy! Providing secure shell access, file transfer and shell stream (stream shell output from remote to a local file). Jonin has no prerequisites, you can just [download the release][jonin-release] and use it right away!
+> A fully customizable CLI application to communicate with and send commands to **[Ninja][ninja]** running behind any NAT, firewall and proxy! Providing secure shell access, file transfer and shell stream (stream shell output from remote to a local file). Jonin has no prerequisites, you can just [download the release][jonin-release] and use it right away!
 
-**Please note that Jonin is the controller (commander). You would need [Ninja][ninja] on target (remote) computer(s) to host and execute the Jonin's commands**
+**Please note that Jonin is the controller (commander). You will need [Ninja][ninja] on the target (remote) computer(s) to host and execute commands.**
 
 ![logo]
 
-# [Download][jonin-release]
-
-You can download latest release from [here][jonin-release]
-
-# Features
-
-- Secure shell access to remote ([Ninja][ninja]) computer
-- File upload/download (Multiple files at once) to/from remote ([Ninja][ninja])
-- Shell stream, run command on remote ([Ninja][ninja]) and stream output to a file on local ([Jonin][jonin])
-
-# Demo
-
-![jonin](https://user-images.githubusercontent.com/46329768/179629372-c2ee8fab-8a48-4557-b049-5e99f9d3f9e4.gif)
-
-https://user-images.githubusercontent.com/46329768/179628114-5f6d4307-4bd8-419f-8c85-873e790e440f.mp4
-
-# Platforms
-
-| ![windows]   | ![macos]            | ![linux]           |
-| ------------ | ------------------- | ------------------ |
-| Windows 10 ✔ | macOS 12 Monterey ✔ | Parrot OS 4.11.2 ✔ |
-
 # Overview
 
-This CLI application will provide a fully customizable tool to manage **[Ninja][ninja]** instances, connect to them, execute commands, download and upload files and use shell stream feature (stream shell output from Ninja to Jonin/local computer).
+This CLI application provides a fully customizable tool to manage **[Ninja][ninja]** instances, connect to them, execute commands, download and upload files, and use the shell stream feature (stream shell output from Ninja to Jonin/local computer)
 
 - [Download](#download)
 - [Features](#features)
+- [Demo](#demo)
 - [Platforms](#platforms)
-- [Overview](#overview)
 - [Ninja](#ninja)
 - [Setup](#setup)
   - [Fix `No Ninjas` Error](#fix-no-ninjas-error)
 - [Usage](#usage)
   - [Control Commands](#control-commands)
     - [change](#change)
-    - [clear](#change)
-    - [exit](#change)
+    - [clear](#clear)
+    - [exit](#exit)
   - [Command Types](#command-types)
     - [manage](#manage)
     - [cmd](#cmd)
@@ -53,32 +31,57 @@ This CLI application will provide a fully customizable tool to manage **[Ninja][
     - [tray](#tray)
 - [Configuration File](#configuration-file)
 - [Host Setup](#host-setup)
+  - [ngrok](#ngrok)
   - [Dynamic DNS](#dynamic-dns)
   - [VPS](#vps)
   - [Static IP Address](#static-ip-address)
   - [Domain Name](#domain-name)
+- [Record Ninja Camera And Mic](#record-ninja-camera-and-mic)
 - [Use As Spyware](#use-as-spyware)
+- [Source Code](#source-code)
+
+# [Download][jonin-release]
+
+You can download the latest release from [here][jonin-release]
+
+# Features
+
+- Secure shell access to remote ([Ninja][ninja]) computer
+- File upload/download (multiple files at once) to/from remote ([Ninja][ninja])
+- Shell stream: run a command on remote ([Ninja][ninja]) and stream output to a file on local ([Jonin][jonin])
+
+# Demo
+
+![jonin](https://user-images.githubusercontent.com/46329768/179629372-c2ee8fab-8a48-4557-b049-5e99f9d3f9e4.gif)
+
+<https://user-images.githubusercontent.com/46329768/179628114-5f6d4307-4bd8-419f-8c85-873e790e440f.mp4>
+
+# Platforms
+
+| ![windows]   | ![macos]            | ![linux]           |
+| ------------ | ------------------- | ------------------ |
+| Windows 10 ✔ | macOS 12 Monterey ✔ | Parrot OS 4.11.2 ✔ |
 
 # [Ninja][ninja]
 
-**[Ninja][ninja]** should be running on the target computer in order to control it with Jonin. **PORT** configuration should be same on Ninja and Jonin and **HOST** should point to Jonin to establish connection
+**[Ninja][ninja]** should be running on the target computer in order to control it with Jonin. **PORT** configuration should be the same on Ninja and Jonin, and Ninja's **HOST** should point to Jonin to establish a connection.
 
 # Setup
 
-Follow these steps to setup Jonin and Ninja:
+Follow these steps to set up Jonin and Ninja:
 
-- Download **[Jonin Release][jonin-release]** and **[Ninja Release][ninja-release]**
-- Change **PORT** in `config/constants.json` for both Ninja and Jonin, the ports should be the same. Please read [This Guide](#host-setup) about how to setup **HOST** to never lose access to Ninja
-- Forward configured port on **Jonin**'s router. There are lots of guides out there for port forwarding. [This one][noio-port-forwarding] from noip is a nice one
-- Done! Now run **[Ninja][ninja]** on the target/remote computer, run Jonin on controller/local computer and wait for some report from your **[Ninja][ninja]** !
+- Download the **[Jonin Release][jonin-release]** and **[Ninja Release][ninja-release]**
+- Change **PORT** in `config/constants.json` for both Ninja and Jonin; the ports should be the same. Please read [this guide](#host-setup) about how to set up **HOST** so you never lose access to Ninja
+- Expose Jonin to the internet — either with [ngrok](#ngrok) (easiest) or by forwarding the configured port on **Jonin**'s router ([guide from No-IP][noio-port-forwarding])
+- Done! Now run **[Ninja][ninja]** on the target/remote computer, run Jonin on the controller/local computer, and wait for a report from your **[Ninja][ninja]**!
 
-**For usage guide and list of commands, [check here][jonin-usage]**
+**For usage guide and list of commands, [check below](#usage)**
 
 **Note: `NO_LOG` in config file SHOULD be set to `true` when you want to use Ninja as a service, otherwise, the log file might grow larger forever (up to the limit)**
 
 ### Fix `No Ninjas` Error
 
-If you did all above and got `No Ninjas`, then the chances are your ISP is putting you behind a NAT. To check this, you can find your router's WAN IP address (can be found on router's homepage) and then compare it to the actual IP address that you have on the internet (can be found by searching `my ip` on google); If these IP addresses were NOT identical, then your router is behind a NAT. To fix this, you should ask your ISP to change your NAT type to `OPEN`
+If you did everything above and got `No Ninjas`, then the chances are your ISP is putting you behind a NAT. To check this, you can find your router's WAN IP address (can be found on the router's homepage) and then compare it to the actual IP address that you have on the internet (can be found by searching `my ip` on Google); if these IP addresses are NOT identical, then your router is behind a NAT. To fix this, you should ask your ISP to change your NAT type to `OPEN`.
 
 # Usage
 
@@ -89,11 +92,16 @@ There are few command types available that each of them has their own commands. 
 ### Control Commands
 
 - #### `change`
+
   use this command to change command type ([list of all types](#command-types))
+
 - #### `cls`, `clear`
+
   clear console
+
 - #### `/exit`
-  cose Jonin
+
+  close Jonin
 
 ### Command Types
 
@@ -331,28 +339,50 @@ You can find this file in `config/constants.json`:
 
 # Host Setup
 
-When configuring **[Ninja][ninja]**, you should use a **HOST** that points to **[Jonin][jonin]** computer and also will always be available. So you'll have to use one of the following options:
+When configuring **[Ninja][ninja]**, you should use a **HOST** that points to the **[Jonin][jonin]** computer and will always be available. So you'll have to use one of the following options:
 
 ### Dynamic DNS
 
-This is the best way I can suggest since It's free and easy. you just need to create an account in one of DDNS services (like [Duck DNS][duckdns] and [No-Ip][noip]), create a domain name and set it to point to your dynamic IP address. If your ISP changed your IP, then just simply change it on DDNS website or install a Dynamic Update Client (DUC) to do this for you automatically.
+This is the best free option for a **permanent** setup when you can port-forward. You just need to create an account with one of the DDNS services (like [Duck DNS][duckdns] and [No-Ip][noip]), create a domain name, and set it to point to your dynamic IP address. If your ISP changes your IP, then simply change it on the DDNS website or install a Dynamic Update Client (DUC) to do this for you automatically.
+
+### ngrok
+
+This is the easiest way to get started, especially if you can't port-forward (e.g. CGNAT) or just want to try things quickly. Since Ninja connects **outbound** to Jonin, run [ngrok][ngrok] on the machine where **Jonin** is listening and tunnel Jonin's port to a public URL. ngrok supports the WebSocket and XHR polling that Socket.io uses, so no extra tunnel configuration is needed.
+
+1. Start **Jonin** on your controller machine (default port `3707`).
+2. In another terminal, run:
+
+   ```bash
+   ngrok http 3707
+   ```
+
+   (Replace `3707` with your `PORTS.DATA` value if you changed it.)
+
+3. Copy the ngrok hostname (e.g. `abc123.ngrok-free.app`) — **without** `https://`.
+4. In **Ninja**'s `config/constants.json`:
+   - Set **HOST** to that ngrok hostname.
+   - Set **PORTS.DATA** to **443** (ngrok exposes the tunnel over HTTPS on port 443).
+
+Jonin keeps listening on its local port (`3707`); only Ninja's config changes to reach it through the tunnel.
+
+**Downside:** on the free tier, the ngrok URL changes every time you restart the tunnel, so you must update Ninja's **HOST** after each restart. For a permanent setup, use one of the options below instead. The tunnel must also stay running whenever you want Ninjas to connect.
 
 ### VPS
 
-You can purchase a VPS and use its IP or hostname as **HOST** in config file. However you'll always have to control your Ninjas from this VPS. Another downside is that this is paid.
+You can purchase a VPS and use its IP or hostname as **HOST** in the config file. However, you'll always have to control your Ninjas from this VPS. Another downside is that this is paid.
 
 ### Static IP Address
 
-You can use an IP address for your Jonin and set this IP in **[Ninja][ninja]**'s configuration. This is not recommended since you'll have to spend money while there are easy free ways, unless you have a static IP already
+You can use an IP address for your Jonin and set this IP in **[Ninja][ninja]**'s configuration. This is not recommended since you'll have to spend money while there are easy free ways, unless you already have a static IP.
 
 ### Domain Name
 
-Just like static IP, you can use a domain name for your Jonin and set this name in **[Ninja][ninja]**'s configuration. For same reason as static IP, this also is not a recommended way
+Just like a static IP, you can use a domain name for your Jonin and set this name in **[Ninja][ninja]**'s configuration. For the same reason as a static IP, this is also not a recommended way.
 
 # Record Ninja Camera And Mic
 
-One way to do this is to use **FFmpeg**. You'll need to either copy **FFmpeg** files into target computer when setting up **[Ninja][ninja]**, upload it to an already set up **Ninja** using `upload` command or order Ninja to download it itself using shell commands
-Then, on windows for example, you can run this:
+One way to do this is to use **FFmpeg**. You'll need to either copy **FFmpeg** files into the target computer when setting up **[Ninja][ninja]**, upload it to an already set up **Ninja** using the `upload` command, or order Ninja to download it itself using shell commands.
+Then, on Windows for example, you can run this:
 
 ```bash
 ffmpeg -list_devices true -f dshow -i dummy
@@ -364,15 +394,15 @@ to see list of DirectShow devices and then use the following `cmd-stream` comman
 @ffmpeg -f dshow -i video="DIRECT_SHOW_CAMERA_FROM_LIST":audio="DIRECT_SHOW_MIC_FROM_LIST" -f matroska -@G:/cam.mkv@G:/cam-err.txt@
 ```
 
-which will save video to **G:/cam.mkv** and errors to **G:/cam-err.txt**
+which will save video to **G:/cam.mkv** and errors to **G:/cam-err.txt**.
 
 # Use As Spyware
 
-Please note that Ninja can be easily used as a spyware, especially when installed as a service, it will open full access to the target computer for the **[Jonin][jonin]** controlling it. So use it carefully and don't leave the **Ninja** process running on a computer that is connected to the internet
+Please note that Ninja can be easily used as spyware, especially when installed as a service; it will open full access to the target computer for the **[Jonin][jonin]** controlling it. So use it carefully and don't leave the **Ninja** process running on a computer that is connected to the internet.
 
 # Source Code
 
-Source code will be open soon, after some refactoring and improvements
+Source code will be open soon, after some refactoring and improvements.
 
 [version-shield]: https://img.shields.io/badge/Version-1.1.0-blue?style=flat-square
 [cross-platform-shield]: https://img.shields.io/badge/Cross-Platform-brightgreen?style=flat-square
@@ -384,6 +414,7 @@ Source code will be open soon, after some refactoring and improvements
 [noio-port-forwarding]: https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/
 [noip]: https://www.noip.com
 [duckdns]: https://www.duckdns.org
+[ngrok]: https://ngrok.com
 [windows]: https://user-images.githubusercontent.com/46329768/141021000-3fe223be-f648-4aaf-8a2a-3a5d84f95d50.png
 [macos]: https://user-images.githubusercontent.com/46329768/141021007-c2075401-e0e0-4451-8668-77da557bbe9b.png
 [linux]: https://user-images.githubusercontent.com/46329768/142761409-badaec5e-7f02-4280-9dfb-294adc305f56.png
